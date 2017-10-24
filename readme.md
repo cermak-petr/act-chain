@@ -5,6 +5,7 @@ This act chains other acts by piping their outputs into inputs.
 **INPUT**
 
 It accepts input in the following format:
+```javascript
 { "acts": [
     { 
         "actId": "user_name/act_1_name",
@@ -17,5 +18,6 @@ It accepts input in the following format:
     },
     ...
 ] }
+```
 
 __This act returns the output of the last act in the chain.__
