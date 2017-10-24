@@ -1,0 +1,17 @@
+
+{ 
+  "name": "act-chain",
+  "version": "1.0.0",
+  "description": "Apify act for chaining other acts by piping their outputs into inputs",
+  "main": "main.js",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cermak-petr/act-chain"
+  },
+  "dependencies": {
+    "apify": "latest",
+    "bluebird": "latest",
+    "underscore": "latest"
+  }
+}
