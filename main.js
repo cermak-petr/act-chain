@@ -29,10 +29,10 @@ Apify.main(async () => {
         console.log('starting act: ' + act.actId);
         console.log('input: ');
         console.dir(actInput);
-        console.log('act finished: ' + act.actId);
         state.output = await Apify.call(act.actId, actInput, act.opts);
         state.index++;
         await Apify.setValue('STATE', state);
+        console.log('act finished: ' + act.actId);
     }
     await Apify.setValue('OUTPUT', getOutput(output));
     if(data.finalWebhook){
