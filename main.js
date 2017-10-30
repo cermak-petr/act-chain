@@ -20,7 +20,7 @@ Apify.main(async () => {
     }
     let output = input;
     for(let act of input.acts){
-        const actInput = act.input || output.output.body || output.output || output;
+        const actInput = act.input || (output.output ? output.output.body : false) || output.output || output;
         console.log('starting act: ' + act.actId);
         console.log('input: ');
         console.dir(actInput);
