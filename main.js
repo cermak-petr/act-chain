@@ -2,6 +2,10 @@ const Apify = require('apify');
 const _ = require('underscore');
 const Promise = require('bluebird');
 
+function getOutput(output){
+    return (output.output ? output.output.body : false) || output.output || output;
+}
+
 async function postWebhook(url, execIds){
     const options = {
         method: 'POST',
@@ -14,20 +18,23 @@ async function postWebhook(url, execIds){
 
 Apify.main(async () => {
     const input = await Apify.getValue('INPUT');
+    const state = (await Apify.getValue('STATE')) || {index: 0, output: input};
     const data = input.data ? (typeof input.data === 'string' ? JSON.parse(input.data) : input.data) : input;
     if(!data.acts){
         return console.log('missing "acts" attribute in INPUT');
     }
-    let output = input;
-    for(let act of input.acts){
-        const actInput = act.input || (output.output ? output.output.body : false) || output.output || output;
+    while(state.index < input.acts.length){
+        const act = input.acts[state.index];
+        const actInput = act.input || getOutput(state.output);
         console.log('starting act: ' + act.actId);
         console.log('input: ');
         console.dir(actInput);
-        output = await Apify.call(act.actId, actInput, act.opts);
         console.log('act finished: ' + act.actId);
+        state.output = await Apify.call(act.actId, actInput, act.opts);
+        state.index++;
+        await Apify.setValue('STATE', state);
     }
-    await Apify.setValue('OUTPUT', output.output.body || output.output || output);
+    await Apify.setValue('OUTPUT', getOutput(output));
     if(data.finalWebhook){
         await postWebhook(input.finalWebhook, output);
     }
