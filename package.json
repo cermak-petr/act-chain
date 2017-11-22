@@ -10,9 +10,9 @@
     "url": "https://github.com/cermak-petr/act-chain"
   },
   "dependencies": {
-    "apify": "latest",
-    "extend": "latest",
-    "bluebird": "latest",
-    "underscore": "latest"
+    "apify": "^0.4.36",
+    "extend": "^3.0.1",
+    "bluebird": "^3.5.1",
+    "underscore": "^1.8.3"
   }
 }
