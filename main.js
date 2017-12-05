@@ -54,7 +54,7 @@ Apify.main(async () => {
         console.log('act finished: ' + act.actId);
     }
     
-    if(state.latest){waitForLatest();}
+    if(state.latest){await waitForLatest();}
     
     while(state.index < input.acts.length){
         const act = input.acts[state.index];
