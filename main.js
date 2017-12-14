@@ -2,6 +2,7 @@ const Apify = require('apify');
 const _ = require('underscore');
 const extend = require('extend');
 const Promise = require('bluebird');
+const request = require('request-promise');
 
 function getOutput(output){
     return output ? (output.body || output) : undefined;
